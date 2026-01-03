@@ -1,0 +1,285 @@
+1. What NumPy Is (Mental Model)
+
+NumPy is a numerical computing library designed for high-performance operations on arrays.
+
+Key points:
+
+Provides fast, fixed-type arrays
+
+Operations are vectorized (no explicit Python loops)
+
+Used for mathematics, statistics, machine learning, and simulations
+
+import numpy as np
+
+2. NumPy Array vs Python List
+a = [1, 2, 3]            # Python list
+b = np.array([1, 2, 3])  # NumPy array
+
+
+Key differences:
+
+Python lists allow mixed data types and are slower
+
+NumPy arrays use a single data type and contiguous memory
+
+NumPy operations are significantly faster for numerical work
+
+3. Random Numbers — Core Idea
+
+Random numbers in NumPy follow statistical distributions, not uncontrolled randomness.
+
+Two fundamental distributions:
+
+Uniform distribution
+
+Normal (Gaussian) distribution
+
+4. Uniform Distribution — np.random.rand()
+np.random.rand(5)
+
+
+Output:
+
+[0.13 0.72 0.45 0.91 0.30]
+
+
+Meaning:
+
+Values lie in the range 0 ≤ x < 1
+
+Every value in the range is equally likely
+
+The range is fixed by definition
+
+Changing the range:
+
+5 + 2 * np.random.rand(5)
+
+
+Output:
+
+Values between 5 and 7
+
+5. Normal Distribution — np.random.randn()
+np.random.randn(5)
+
+
+Output:
+
+[ 0.2  -0.8   1.1  -0.4   0.05 ]
+
+
+Meaning:
+
+Mean = 0
+
+Standard deviation = 1
+
+Values cluster around the mean
+
+No fixed bounds
+
+6. Why Values Appear Between −1 and +1
+
+This behavior is probabilistic, not a hard limit.
+
+Statistical rule for a normal distribution:
+
+~68% of values lie within ±1σ
+
+~95% lie within ±2σ
+
+~99.7% lie within ±3σ
+
+Extreme values are rare but possible.
+
+7. Custom Distributions
+
+Uniform distribution with custom range:
+
+np.random.uniform(5, 10, 5)
+
+
+Output:
+
+Values between 5 and 10
+
+
+Normal distribution with custom parameters:
+
+np.random.normal(10, 2, 5)
+
+
+Output:
+
+Values clustered around 10 with spread 2
+
+8. Random Integers
+np.random.randint(0, 10, size=5)
+
+
+Output:
+
+[3 7 1 9 0]
+
+
+Notes:
+
+Lower bound is inclusive
+
+Upper bound is exclusive
+
+9. Sampling — choice()
+np.random.choice([10, 20, 30])
+
+
+Output:
+
+20
+
+
+Sampling with probabilities:
+
+np.random.choice([0, 1], p=[0.7, 0.3], size=5)
+
+
+Output:
+
+[0 1 0 0 0]
+
+10. Shuffle vs Permutation
+a = np.array([1, 2, 3, 4])
+np.random.shuffle(a)
+
+
+Effect:
+
+Modifies the original array in place
+
+np.random.permutation(a)
+
+
+Effect:
+
+Returns a shuffled copy
+
+Original array remains unchanged
+
+11. Seed — Reproducibility
+np.random.seed(42)
+np.random.rand(3)
+
+
+Effect:
+
+Produces the same output every run
+
+Important:
+
+Seeding does not remove randomness
+
+It fixes the random sequence for reproducibility
+
+12. Visual Interpretation
+
+Uniform distribution → flat histogram
+
+Normal distribution → bell-shaped curve
+
+Patterns become visible only with large samples
+
+13. Final Mental Model
+
+rand() → fixed range, flat probability
+
+randn() → center-focused probability
+
+Distributions describe how frequently values occur
+
+NumPy directly implements statistical laws
+
+14. One-Line Takeaway
+
+NumPy randomness is structured, not arbitrary — it follows precise statistical rules that model real-world uncertainty.
+
+NumPy Shapes: (5,) vs (1,5)
+15. Shape Meaning
+(5,)
+
+One-dimensional array
+
+Five values
+
+No rows or columns
+
+Visual:
+
+[ a  b  c  d  e ]
+
+(1,5)
+
+Two-dimensional array
+
+One row, five columns
+
+Visual:
+
+[ a  b  c  d  e ]
+
+16. Core Difference
+Shape	Meaning
+(5,)	Values only
+(1,5)	One-row table
+
+Same values, different structure.
+
+17. Transpose Behavior
+np.array([1, 2, 3]).T
+
+
+Output:
+
+[1 2 3]
+
+np.array([[1, 2, 3]]).T
+
+
+Output:
+
+[[1]
+ [2]
+ [3]]
+
+18. Why NumPy Treats Them Differently
+
+NumPy follows matrix mathematics
+
+Rows and columns must be explicit
+
+(5,) has no direction
+
+(1,5) has a defined row direction
+
+19. When to Use Which
+
+Use (5,) when:
+
+Performing simple vector operations
+
+Computing dot products
+
+Working with temporary numeric data
+
+Use (1,5) when:
+
+Working with machine learning features
+
+Performing matrix operations
+
+Explicit row structure is required
+
+20. Memory Rule
+
+One number in the shape means a 1D array.
+Two numbers in the shape mean rows × columns.
